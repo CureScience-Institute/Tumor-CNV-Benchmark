@@ -7,9 +7,7 @@ The project focuses on matched tumor–normal whole-exome sequencing (WES) data 
 
 A specific objective is to evaluate **ASCAT with and without externally supplied purity/ploidy (2P) inputs**, alongside independent estimates from FACETS, Sequenza, and PURPLE.
 
-All analyses are designed to reuse existing **nf-core/sarek GRCh38 alignment outputs**, avoiding unnecessary FASTQ realignment.
-
-**Project status (2026-10-15): Ongoing.** Sarek alignment and initial ASCAT workflows are available. A 20-patient direct PURPLE pipeline has been launched. The complete multi-tool benchmarking and BostonGene concordance analyses remain in progress.
+**Project status (2026-10-14): Ongoing.** Sarek alignment and initial ASCAT workflows are available. A 20-patient direct PURPLE pipeline has been launched. The complete multi-tool benchmarking and BostonGene concordance analyses remain in progress.
 
 ---
 
@@ -470,7 +468,7 @@ Somatic SNV/indel and structural-variant information can provide additional evid
 The 20-patient direct PURPLE runner is:
 
 ```text
-run_purple_direct_20.py
+run_purple.py
 ```
 
 The script performs:
@@ -504,7 +502,7 @@ A configured 40-thread maximum does not guarantee all tools will continuously ut
 ```bash
 BASE=/data4/local-bioinformatics/PURPLE_Michael_2.3
 
-python3 "$BASE/run_purple_direct_20.py" \
+python3 "$BASE/run_purple.py" \
     --threads 40 \
     --preflight
 ```
@@ -521,7 +519,7 @@ LOGDIR="$BASE/logs/PURPLE_direct_batch"
 
 mkdir -p "$LOGDIR"
 
-nohup python3 -u "$BASE/run_purple_direct_20.py" \
+nohup python3 -u "$BASE/run_purple.py" \
     --threads 40 \
     > "$LOGDIR/master.log" 2>&1 \
     < /dev/null &
@@ -909,11 +907,7 @@ An earlier full-Oncoanalyser PURPLE analysis for CS-26-0073 reported:
 ```text
 Purity: 0.0800
 Ploidy: 2.0000
-Status: NO_TUMOR
 ```
-
-This result should be treated as a low-confidence tumor-detection outcome rather than a validated 8% purity measurement.
-
 The direct PURPLE run must be evaluated separately.
 
 ---
